@@ -282,13 +282,27 @@ dynamic_css = f"""
     .suggestions-header {{ color: {t_base} !important; }}
     .ambient-glow {{ background: radial-gradient(circle, {t_base}15 0%, rgba(0,0,0,0) 70%) !important; }}
     
-    /* Перекрытие стандартной оранжевой обводки Streamlit */
-    div[data-testid="stChatInput"] div[data-baseweb="textarea"] {{
-        border-color: transparent !important;
-    }}
-    div[data-testid="stChatInput"] div[data-baseweb="textarea"]:focus-within {{
+    /* Полное перекрытие оранжевого фокуса Streamlit на цвет темы */
+    div[data-testid="stChatInput"] > div:focus-within {{
         border-color: {t_base} !important;
         box-shadow: 0 0 0 1px {t_base} !important;
+    }}
+    /* Убираем внутреннюю обводку, которую мы случайно добавили */
+    div[data-testid="stChatInput"] div[data-baseweb="textarea"]:focus-within {{
+        box-shadow: none !important;
+        border-color: transparent !important;
+    }}
+    /* Перекрашиваем кнопку отправки сообщения в цвет темы */
+    div[data-testid="stChatInput"] button {{
+        background-color: {t_base} !important;
+        color: white !important;
+    }}
+    div[data-testid="stChatInput"] button:hover {{
+        background-color: {t_dark} !important;
+    }}
+    div[data-testid="stChatInput"] button svg {{
+        fill: white !important;
+        color: white !important;
     }}
     
     /* Кнопка настроек (шестеренка) в правом верхнем углу */
