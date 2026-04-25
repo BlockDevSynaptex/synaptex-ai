@@ -397,21 +397,21 @@ if len(chat_history_for_sugg) == 0:
     <div class="suggestions-header">✨ Попробуйте спросить</div>
 
     <div class="sugg-group group-1">
-    <div class="suggestion-card"><div class="suggestion-icon">{{group1[0][0]}}</div><div class="suggestion-text">{{group1[0][1]}}</div></div>
-    <div class="suggestion-card"><div class="suggestion-icon">{{group1[1][0]}}</div><div class="suggestion-text">{{group1[1][1]}}</div></div>
-    <div class="suggestion-card"><div class="suggestion-icon">{{group1[2][0]}}</div><div class="suggestion-text">{{group1[2][1]}}</div></div>
+    <div class="suggestion-card"><div class="suggestion-icon">{group1[0][0]}</div><div class="suggestion-text">{group1[0][1]}</div></div>
+    <div class="suggestion-card"><div class="suggestion-icon">{group1[1][0]}</div><div class="suggestion-text">{group1[1][1]}</div></div>
+    <div class="suggestion-card"><div class="suggestion-icon">{group1[2][0]}</div><div class="suggestion-text">{group1[2][1]}</div></div>
     </div>
 
     <div class="sugg-group group-2">
-    <div class="suggestion-card"><div class="suggestion-icon">{{group2[0][0]}}</div><div class="suggestion-text">{{group2[0][1]}}</div></div>
-    <div class="suggestion-card"><div class="suggestion-icon">{{group2[1][0]}}</div><div class="suggestion-text">{{group2[1][1]}}</div></div>
-    <div class="suggestion-card"><div class="suggestion-icon">{{group2[2][0]}}</div><div class="suggestion-text">{{group2[2][1]}}</div></div>
+    <div class="suggestion-card"><div class="suggestion-icon">{group2[0][0]}</div><div class="suggestion-text">{group2[0][1]}</div></div>
+    <div class="suggestion-card"><div class="suggestion-icon">{group2[1][0]}</div><div class="suggestion-text">{group2[1][1]}</div></div>
+    <div class="suggestion-card"><div class="suggestion-icon">{group2[2][0]}</div><div class="suggestion-text">{group2[2][1]}</div></div>
     </div>
 
     <div class="sugg-group group-3">
-    <div class="suggestion-card"><div class="suggestion-icon">{{group3[0][0]}}</div><div class="suggestion-text">{{group3[0][1]}}</div></div>
-    <div class="suggestion-card"><div class="suggestion-icon">{{group3[1][0]}}</div><div class="suggestion-text">{{group3[1][1]}}</div></div>
-    <div class="suggestion-card"><div class="suggestion-icon">{{group3[2][0]}}</div><div class="suggestion-text">{{group3[2][1]}}</div></div>
+    <div class="suggestion-card"><div class="suggestion-icon">{group3[0][0]}</div><div class="suggestion-text">{group3[0][1]}</div></div>
+    <div class="suggestion-card"><div class="suggestion-icon">{group3[1][0]}</div><div class="suggestion-text">{group3[1][1]}</div></div>
+    <div class="suggestion-card"><div class="suggestion-icon">{group3[2][0]}</div><div class="suggestion-text">{group3[2][1]}</div></div>
     </div>
 
     </div>
