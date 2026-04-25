@@ -282,6 +282,15 @@ dynamic_css = f"""
     .suggestions-header {{ color: {t_base} !important; }}
     .ambient-glow {{ background: radial-gradient(circle, {t_base}15 0%, rgba(0,0,0,0) 70%) !important; }}
     
+    /* Перекрытие стандартной оранжевой обводки Streamlit */
+    div[data-testid="stChatInput"] div[data-baseweb="textarea"] {{
+        border-color: transparent !important;
+    }}
+    div[data-testid="stChatInput"] div[data-baseweb="textarea"]:focus-within {{
+        border-color: {t_base} !important;
+        box-shadow: 0 0 0 1px {t_base} !important;
+    }}
+    
     /* Кнопка настроек (шестеренка) в правом верхнем углу */
     div[data-testid="stPopover"] {{ 
         position: fixed !important; 
@@ -492,6 +501,7 @@ if prompt := st.chat_input("Спросите Synaptex..."):
                 if chunk.choices[0].delta.content is not None:
                     full_response += chunk.choices[0].delta.content
                     res_box.markdown(f'<div class="ai-msg-container"><div class="ai-msg"><b>Synaptex</b><br><br>{full_response}▌</div></div>', unsafe_allow_html=True)
+                    time.sleep(0.015) # Искусственная задержка для красивого эффекта печати
             
             res_box.markdown(f'<div class="ai-msg-container"><div class="ai-msg"><b>Synaptex</b><br><br>{full_response}</div></div>', unsafe_allow_html=True)
             chat_history.append({"role": "assistant", "content": full_response})
