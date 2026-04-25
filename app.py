@@ -237,6 +237,15 @@ st.markdown("""
         .right-suggestions-panel { display: none !important; }
         .ambient-glow { display: none !important; }
     }
+
+    /* Скрываем элементы Streamlit Cloud для чистоты UI */
+    header {visibility: hidden !important;}
+    footer {visibility: hidden !important;}
+    .viewerBadge_container {display: none !important;}
+    #viewerBadge_container {display: none !important;}
+    [data-testid="stToolbar"] {visibility: hidden !important;}
+    [data-testid="manage-app-button"] {display: none !important;}
+    [data-testid="stAppDeployButton"] {display: none !important;}
 </style>
 """, unsafe_allow_html=True)
 
@@ -360,51 +369,54 @@ with st.popover("⚙️"):
 st.markdown("<div class='synaptex-title'>Synaptex</div>", unsafe_allow_html=True)
 
 # Динамические подсказки
-all_suggestions = [
-    ("✍️", "Напиши пост для соцсетей про искусственный интеллект"),
-    ("💻", "Объясни сложный код простыми словами"),
-    ("🧠", "Придумай идеи для нового стартапа"),
-    ("✈️", "Спланируй маршрут для поездки на выходные"),
-    ("🧘", "Как быстро расслабиться после тяжелого дня?"),
-    ("📚", "Помоги с домашним заданием по математике"),
-    ("🍳", "Что приготовить на ужин из простых продуктов?"),
-    ("🎬", "Посоветуй интересный фильм на вечер"),
-    ("🏋️", "Составь план тренировок для начинающих")
-]
+chat_history_for_sugg = st.session_state.chats.get(st.session_state.current_chat, [])
 
-# Размешиваем подсказки и делим на 3 группы
-random.shuffle(all_suggestions)
-group1 = all_suggestions[0:3]
-group2 = all_suggestions[3:6]
-group3 = all_suggestions[6:9]
+if len(chat_history_for_sugg) == 0:
+    all_suggestions = [
+        ("✍️", "Напиши пост для соцсетей про искусственный интеллект"),
+        ("💻", "Объясни сложный код простыми словами"),
+        ("🧠", "Придумай идеи для нового стартапа"),
+        ("✈️", "Спланируй маршрут для поездки на выходные"),
+        ("🧘", "Как быстро расслабиться после тяжелого дня?"),
+        ("📚", "Помоги с домашним заданием по математике"),
+        ("🍳", "Что приготовить на ужин из простых продуктов?"),
+        ("🎬", "Посоветуй интересный фильм на вечер"),
+        ("🏋️", "Составь план тренировок для начинающих")
+    ]
 
-# Фоновое свечение и панель подсказок (справа)
-suggestions_html = f"""
-<div class="ambient-glow"></div>
-<div class="right-suggestions-panel">
-<div class="suggestions-header">✨ Попробуйте спросить</div>
+    # Размешиваем подсказки и делим на 3 группы
+    random.shuffle(all_suggestions)
+    group1 = all_suggestions[0:3]
+    group2 = all_suggestions[3:6]
+    group3 = all_suggestions[6:9]
 
-<div class="sugg-group group-1">
-<div class="suggestion-card"><div class="suggestion-icon">{group1[0][0]}</div><div class="suggestion-text">{group1[0][1]}</div></div>
-<div class="suggestion-card"><div class="suggestion-icon">{group1[1][0]}</div><div class="suggestion-text">{group1[1][1]}</div></div>
-<div class="suggestion-card"><div class="suggestion-icon">{group1[2][0]}</div><div class="suggestion-text">{group1[2][1]}</div></div>
-</div>
+    # Фоновое свечение и панель подсказок (справа)
+    suggestions_html = f"""
+    <div class="ambient-glow"></div>
+    <div class="right-suggestions-panel">
+    <div class="suggestions-header">✨ Попробуйте спросить</div>
 
-<div class="sugg-group group-2">
-<div class="suggestion-card"><div class="suggestion-icon">{group2[0][0]}</div><div class="suggestion-text">{group2[0][1]}</div></div>
-<div class="suggestion-card"><div class="suggestion-icon">{group2[1][0]}</div><div class="suggestion-text">{group2[1][1]}</div></div>
-<div class="suggestion-card"><div class="suggestion-icon">{group2[2][0]}</div><div class="suggestion-text">{group2[2][1]}</div></div>
-</div>
+    <div class="sugg-group group-1">
+    <div class="suggestion-card"><div class="suggestion-icon">{{group1[0][0]}}</div><div class="suggestion-text">{{group1[0][1]}}</div></div>
+    <div class="suggestion-card"><div class="suggestion-icon">{{group1[1][0]}}</div><div class="suggestion-text">{{group1[1][1]}}</div></div>
+    <div class="suggestion-card"><div class="suggestion-icon">{{group1[2][0]}}</div><div class="suggestion-text">{{group1[2][1]}}</div></div>
+    </div>
 
-<div class="sugg-group group-3">
-<div class="suggestion-card"><div class="suggestion-icon">{group3[0][0]}</div><div class="suggestion-text">{group3[0][1]}</div></div>
-<div class="suggestion-card"><div class="suggestion-icon">{group3[1][0]}</div><div class="suggestion-text">{group3[1][1]}</div></div>
-<div class="suggestion-card"><div class="suggestion-icon">{group3[2][0]}</div><div class="suggestion-text">{group3[2][1]}</div></div>
-</div>
+    <div class="sugg-group group-2">
+    <div class="suggestion-card"><div class="suggestion-icon">{{group2[0][0]}}</div><div class="suggestion-text">{{group2[0][1]}}</div></div>
+    <div class="suggestion-card"><div class="suggestion-icon">{{group2[1][0]}}</div><div class="suggestion-text">{{group2[1][1]}}</div></div>
+    <div class="suggestion-card"><div class="suggestion-icon">{{group2[2][0]}}</div><div class="suggestion-text">{{group2[2][1]}}</div></div>
+    </div>
 
-</div>
-"""
-st.markdown(suggestions_html, unsafe_allow_html=True)
+    <div class="sugg-group group-3">
+    <div class="suggestion-card"><div class="suggestion-icon">{{group3[0][0]}}</div><div class="suggestion-text">{{group3[0][1]}}</div></div>
+    <div class="suggestion-card"><div class="suggestion-icon">{{group3[1][0]}}</div><div class="suggestion-text">{{group3[1][1]}}</div></div>
+    <div class="suggestion-card"><div class="suggestion-icon">{{group3[2][0]}}</div><div class="suggestion-text">{{group3[2][1]}}</div></div>
+    </div>
+
+    </div>
+    """
+    st.markdown(suggestions_html, unsafe_allow_html=True)
 
 chat_history = st.session_state.chats[st.session_state.current_chat]
 
@@ -465,14 +477,14 @@ if prompt := st.chat_input("Спросите Synaptex..."):
     else:
         try:
             client = Groq(api_key=api_key)
-            api_messages = [{"role": "system", "content": "Ты - Synaptex. Ультра-современная, мощная нейросеть, созданная разработчиком BlockDev. Твой дизайн и логика работают на высочайшем уровне. Отвечай всегда на РУССКОМ языке. Будь уверенным в себе, полезным и вежливым. Если тебя спросят, кто ты или кто тебя создал, отвечай, что ты Synaptex от BlockDev."}]
+            api_messages = [{"role": "system", "content": "Ты - Synaptex. Ультра-современная, сверхточная нейросеть, созданная разработчиком BlockDev. Отвечай всегда на РУССКОМ языке. Будь максимально точным, логичным и опирайся только на факты. Если ты не знаешь ответа на вопрос или сомневаешься — честно скажи 'Я не знаю', НИКОГДА не выдумывай несуществующие факты. Если тебя спросят, кто ты, отвечай, что ты Synaptex от BlockDev."}]
             
             for m in chat_history[-11:-1]:
                 api_messages.append({"role": m["role"], "content": m["content"]})
             api_messages.append({"role": "user", "content": prompt})
 
-            # Температура жестко задана (0.7) так как ползунок убран
-            stream = client.chat.completions.create(model="llama-3.3-70b-versatile", messages=api_messages, temperature=0.7, stream=True)
+            # Температура снижена до 0.2 для максимальной точности и уменьшения ошибок
+            stream = client.chat.completions.create(model="llama-3.3-70b-versatile", messages=api_messages, temperature=0.2, stream=True)
             res_box = st.empty()
             full_response = ""
             
